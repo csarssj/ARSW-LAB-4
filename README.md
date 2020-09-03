@@ -26,7 +26,7 @@ y para ejecutar las dos partes ingresamos :
 
 1. Integre al proyecto base suministrado los Beans desarrollados en el Ejercicio Anterior. Sólo copie las clases, NO los archivos de configuración. Rectifique que se tenga correctamente configurado el esquema de inyección de dependencias con las anotaciones @Service y @Autowired.
 	
-	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/resources/1.png)
+	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/1.png)
 	
 2. Modifique el bean de persistecia 'InMemoryCinemaPersistence' para que por defecto se inicialice con al menos otras 2 salas de cine, y al menos 2 funciones asociadas a cada una.
 	
@@ -87,7 +87,35 @@ y para ejecutar las dos partes ingresamos :
 		}		
 	  ```
 4. Verifique el funcionamiento de a aplicación lanzando la aplicación con maven (ver code 2). Y luego enviando una petición GET a:  http://localhost:8080/cinemas. Rectifique que, como respuesta, se obtenga un objeto jSON con una lista que contenga el detalle de los cines suministados por defecto. 	
-	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/resources/2.png)
+
+	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/2.png)
+	
+5. Modifique el controlador para que ahora, acepte peticiones GET al recurso /cinemas/{name}, el cual retorne usando una representación jSON todas las funciones del cine cuyo nombre sea {name}. Si no existe dicho cine, se debe responder con el código de error HTTP 404. Para esto, revise en la documentación de Spring, sección 22.3.2, el uso de @PathVariable. De nuevo, verifique que al hacer una petición GET -por ejemplo- a recurso http://localhost:8080/cinemas/cinemaY , se obtenga en formato jSON el conjunto de funciones asociadas al cine 'cinemaY' (ajuste esto a los nombres de cine usados en el punto 2).
+	- Controller: 
+	  
+	  ```java
+	  @RequestMapping(method = RequestMethod.GET,path = "{name}")
+	  public ResponseEntity<?> manejadorGetCinemasByName(@PathVariable String name ){
+		Cinema cinema = null;
+	    try {
+	    	cinema= service.getCinemaByName(name);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
+	    } 
+        return new ResponseEntity<>(cinema,HttpStatus.ACCEPTED);
+		}		
+	  ```
+	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/3.png)
+
+6. Modifique el controlador para que ahora, acepte peticiones GET al recurso /cinemas/{name}/{date}, el cual retorne usando una representación jSON una lista de funciones asociadas al cine cuyo nombre es {name} y cuya fecha sea {date}, para mayor facilidad se seguirá manejando el formato "yyyy-MM-dd". De nuevo, si no existen dichas funciones, se debe responder con el código de error HTTP 404. 
+
+	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/4.png)
+
+7. Modifique el controlador para que ahora, acepte peticiones GET al recurso /cinemas/{name}/{date}/{moviename}, el cual retorne usando una representación jSON sólo UNA función, en este caso es necesario detallar además de la fecha, la hora exacta de la función de la forma "yyyy-MM-dd HH:mm". Si no existe dicha función, se debe responder con el código de error HTTP 404.
+	
+	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/5.png)
+	
 ## Authors
 
 [César González](https://github.com/csarssj) 
