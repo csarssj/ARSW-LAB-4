@@ -30,7 +30,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     private final Map<String,Cinema> cinemas=new HashMap<>();
 
     public InMemoryCinemaPersistence() {
-        //load stub data
+        //funcion 1
         String functionDate = "2018-12-18 15:30";
         List<CinemaFunction> functions= new ArrayList<>();
         CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
@@ -39,6 +39,24 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         functions.add(funct2);
         Cinema c=new Cinema("cinemaX",functions);
         cinemas.put("cinemaX", c);
+        //funcion 2
+        String functionDate2 = "2018-12-18 15:30";
+        List<CinemaFunction> functions2= new ArrayList<>();
+        CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
+        CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        Cinema c2=new Cinema("cineco",functions);
+        cinemas.put("cineco", c2);
+        //funcion 3
+        String functionDate3 = "2018-12-18 15:30";
+        List<CinemaFunction> functions3= new ArrayList<>();
+        CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
+        CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
+        functions.add(funct1);
+        functions.add(funct2);
+        Cinema c3=new Cinema("cinepolis",functions);
+        cinemas.put("cinepolis", c3);
     }    
 
     @Override
