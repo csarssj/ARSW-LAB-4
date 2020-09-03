@@ -31,32 +31,35 @@ y para ejecutar las dos partes ingresamos :
 2. Modifique el bean de persistecia 'InMemoryCinemaPersistence' para que por defecto se inicialice con al menos otras 2 salas de cine, y al menos 2 funciones asociadas a cada una.
 	
 	   ```java
-		String functionDate = "2018-12-18 15:30";
-        List<CinemaFunction> functions= new ArrayList<>();
-        CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
-        CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
-        functions.add(funct1);
-        functions.add(funct2);
-        Cinema c=new Cinema("cinemaX",functions);
-        cinemas.put("cinemaX", c);
-        //funcion 2
-        String functionDate2 = "2020-12-18";
-        List<CinemaFunction> functions2= new ArrayList<>();
-        CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate2);
-        CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate2);
-        functions.add(funct21);
-        functions.add(funct22);
-        Cinema c2=new Cinema("cineco",functions2);
-        cinemas.put("cineco", c2);
-        //funcion 3
-        String functionDate3 = "2020-11-07";
-        List<CinemaFunction> functions3= new ArrayList<>();
-        CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate3);
-        CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate3);
-        functions.add(funct31);
-        functions.add(funct32);
-        Cinema c3=new Cinema("cinepolis",functions3);
-        cinemas.put("cinepolis", c3);
+		public InMemoryCinemaPersistence() {
+			//funcion 1
+			String functionDate = "2018-12-18 15:30";
+			List<CinemaFunction> functions= new ArrayList<>();
+			CinemaFunction funct1 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
+			CinemaFunction funct2 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
+			functions.add(funct1);
+			functions.add(funct2);
+			Cinema c=new Cinema("cinemaX",functions);
+			cinemas.put("cinemaX", c);
+			//funcion 2
+			String functionDate2 = "2020-12-18";
+			List<CinemaFunction> functions2= new ArrayList<>();
+			CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate2);
+			CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate2);
+			functions.add(funct21);
+			functions.add(funct22);
+			Cinema c2=new Cinema("cineco",functions2);
+			cinemas.put("cineco", c2);
+			//funcion 3
+			String functionDate3 = "2020-11-07";
+			List<CinemaFunction> functions3= new ArrayList<>();
+			CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate3);
+			CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate3);
+			functions.add(funct31);
+			functions.add(funct32);
+			Cinema c3=new Cinema("cinepolis",functions3);
+			cinemas.put("cinepolis", c3);
+		}    
 	   ```
 
 3. Configure su aplicación para que ofrezca el recurso "/cinema", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los cines. Para esto:
@@ -109,10 +112,42 @@ y para ejecutar las dos partes ingresamos :
 	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/3.png)
 
 6. Modifique el controlador para que ahora, acepte peticiones GET al recurso /cinemas/{name}/{date}, el cual retorne usando una representación jSON una lista de funciones asociadas al cine cuyo nombre es {name} y cuya fecha sea {date}, para mayor facilidad se seguirá manejando el formato "yyyy-MM-dd". De nuevo, si no existen dichas funciones, se debe responder con el código de error HTTP 404. 
+	- Controller: 
+	  
+	  ```java
+	  @RequestMapping(method = RequestMethod.GET,path = "{name}/{date}")
+	  public ResponseEntity<?> manejadorGetCinemasByNameAndDate(@PathVariable String name,@PathVariable String date){
+		List<CinemaFunction> cinema = null;
+	    try {
+	    	cinema= service.getFunctionsbyCinemaAndDate(name, date);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
+	    } 
+        return new ResponseEntity<>(cinema,HttpStatus.ACCEPTED);
+		}		
+	  ```
 
 	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/4.png)
 
 7. Modifique el controlador para que ahora, acepte peticiones GET al recurso /cinemas/{name}/{date}/{moviename}, el cual retorne usando una representación jSON sólo UNA función, en este caso es necesario detallar además de la fecha, la hora exacta de la función de la forma "yyyy-MM-dd HH:mm". Si no existe dicha función, se debe responder con el código de error HTTP 404.
+	- Controller: 
+	  
+	  ```java
+	  @RequestMapping(method = RequestMethod.GET,path = "{name}/{date}/{movie}")
+	  public ResponseEntity<?> manejadorGetCinemasByNameAndDateAndMovie(@PathVariable String name,
+			@PathVariable String date,@PathVariable String movie){
+		List<CinemaFunction> cinema = null;
+	    try {
+	    	cinema= service.getFunctionsbyCinemaAndDate(name, date);
+	    	
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
+	    } 
+        return new ResponseEntity<>(cinema,HttpStatus.ACCEPTED);
+		}		
+	  ```
 	
 	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/5.png)
 	
