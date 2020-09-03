@@ -60,5 +60,13 @@ public interface CinemaPersitence {
      * @throws  CinemaPersistenceException if there is no such cinema
      */
 	public Set<Cinema> getCinemas() throws CinemaPersistenceException;
+	
+	 /**
+     * 
+     * 
+     * @return CinemaFunction 
+     * @throws  CinemaPersistenceException if there is no such cinema
+     */
+	public CinemaFunction getFunctionbyCinemaAndDateAndMovie(String cinema, String date, String movie) throws CinemaPersistenceException;
     
 }

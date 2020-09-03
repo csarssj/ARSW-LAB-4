@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author cristian
+ * @author ceseg
  */
 
 @Service("CinemaServices")

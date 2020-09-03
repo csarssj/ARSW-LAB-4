@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author cristian
+ * @author ceseg
  */
 @Component("InMemoryCinemaPersistence")
 public class InMemoryCinemaPersistence implements CinemaPersitence{
@@ -40,22 +40,22 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         Cinema c=new Cinema("cinemaX",functions);
         cinemas.put("cinemaX", c);
         //funcion 2
-        String functionDate2 = "2018-12-18 15:30";
+        String functionDate2 = "2020-12-18";
         List<CinemaFunction> functions2= new ArrayList<>();
-        CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
-        CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
-        functions.add(funct1);
-        functions.add(funct2);
-        Cinema c2=new Cinema("cineco",functions);
+        CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate2);
+        CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate2);
+        functions.add(funct21);
+        functions.add(funct22);
+        Cinema c2=new Cinema("cineco",functions2);
         cinemas.put("cineco", c2);
         //funcion 3
-        String functionDate3 = "2018-12-18 15:30";
+        String functionDate3 = "2020-11-07";
         List<CinemaFunction> functions3= new ArrayList<>();
-        CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate);
-        CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate);
-        functions.add(funct1);
-        functions.add(funct2);
-        Cinema c3=new Cinema("cinepolis",functions);
+        CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate3);
+        CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate3);
+        functions.add(funct31);
+        functions.add(funct32);
+        Cinema c3=new Cinema("cinepolis",functions3);
         cinemas.put("cinepolis", c3);
     }    
 
@@ -79,6 +79,15 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     	try {
 			Cinema c = getCinema(cinema);
 			return c.getFunctionsByDate(date);
+		} catch (CinemaPersistenceException e) {
+	        throw new UnsupportedOperationException("Not supported yet."); 
+		}
+    }
+    @Override
+    public CinemaFunction getFunctionbyCinemaAndDateAndMovie(String cinema, String date, String movie) {
+    	try {
+			Cinema c = getCinema(cinema);
+			return c.getFunctionsByDateAndMovie(date,movie);
 		} catch (CinemaPersistenceException e) {
 	        throw new UnsupportedOperationException("Not supported yet."); 
 		}
