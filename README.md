@@ -31,7 +31,7 @@ y para ejecutar las dos partes ingresamos :
 2. Modifique el bean de persistecia 'InMemoryCinemaPersistence' para que por defecto se inicialice con al menos otras 2 salas de cine, y al menos 2 funciones asociadas a cada una.
 	
 	   ```java
-		public InMemoryCinemaPersistence() {
+	   public InMemoryCinemaPersistence() {
 			//funcion 1
 			String functionDate = "2018-12-18 15:30";
 			List<CinemaFunction> functions= new ArrayList<>();
@@ -60,7 +60,7 @@ y para ejecutar las dos partes ingresamos :
 			Cinema c3=new Cinema("cinepolis",functions3);
 			cinemas.put("cinepolis", c3);
 		}    
-	   ```
+	      ```
 
 3. Configure su aplicación para que ofrezca el recurso "/cinema", de manera que cuando se le haga una petición GET, retorne -en formato jSON- el conjunto de todos los cines. Para esto:
 	1. Modifique la clase CinemaAPIController teniendo en cuenta el ejemplo de controlador REST hecho con SpringMVC/SpringBoot. (ver code 1)
@@ -197,7 +197,8 @@ y para ejecutar las dos partes ingresamos :
 El componente CinemaRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
 Qué condiciones de carrera se podrían presentar?
   * Cuales son las respectivas regiones críticas?
-  * Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
+  * Ajuste el código para suprimir las condiciones de carrera.
+Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
 Escriba su análisis y la solución aplicada en el archivo ANALISIS_CONCURRENCIA.txt
 	
 ## Authors
