@@ -1,0 +1,12 @@
+Qué condiciones de carrera se podrían presentar?
+  * Cuando se hacen dos o más peticiones al tiempo a un elemento.
+	Ejemplos:Cuando se actualiza un elemento y alguién mas intenta acceder al mismo tiempo a ese elemento.
+Cuales son las respectivas regiones críticas?
+  
+  * Los map que contienen los cinemas ya que no son una estructura de datos que sirva para concurrencia 
+
+SOLUCION:
+	
+	Agregar un estructura hash concurrente 
+	
+	private final ConcurrentMap<String,Cinema> cinemas=new ConcurrentHashMap<>();

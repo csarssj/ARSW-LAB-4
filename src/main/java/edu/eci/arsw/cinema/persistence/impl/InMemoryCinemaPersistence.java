@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Component;
 
@@ -27,7 +29,7 @@ import org.springframework.stereotype.Component;
 @Component("InMemoryCinemaPersistence")
 public class InMemoryCinemaPersistence implements CinemaPersitence{
     
-    private final Map<String,Cinema> cinemas=new HashMap<>();
+    private final ConcurrentMap<String,Cinema> cinemas=new ConcurrentHashMap<>();
 
     public InMemoryCinemaPersistence() {
         //funcion 1
