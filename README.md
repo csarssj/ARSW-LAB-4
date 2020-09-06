@@ -191,6 +191,14 @@ y para ejecutar las dos partes ingresamos :
 		}
 	  ```
 	![image](https://github.com/csarssj/ARSW-LAB-4/blob/master/img/9.png)
+
+## Part III
+
+El componente CinemaRESTAPI funcionará en un entorno concurrente. Es decir, atederá múltiples peticiones simultáneamente (con el stack de aplicaciones usado, dichas peticiones se atenderán por defecto a través múltiples de hilos). Dado lo anterior, debe hacer una revisión de su API (una vez funcione), e identificar:
+Qué condiciones de carrera se podrían presentar?
+  * Cuales son las respectivas regiones críticas?
+  * Ajuste el código para suprimir las condiciones de carrera. Tengan en cuenta que simplemente sincronizar el acceso a las operaciones de persistencia/consulta DEGRADARÁ SIGNIFICATIVAMENTE el desempeño de API, por lo cual se deben buscar estrategias alternativas.
+Escriba su análisis y la solución aplicada en el archivo ANALISIS_CONCURRENCIA.txt
 	
 ## Authors
 
