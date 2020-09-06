@@ -44,8 +44,8 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         List<CinemaFunction> functions2= new ArrayList<>();
         CinemaFunction funct21 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate2);
         CinemaFunction funct22 = new CinemaFunction(new Movie("The Night","Horror"),functionDate2);
-        functions.add(funct21);
-        functions.add(funct22);
+        functions2.add(funct21);
+        functions2.add(funct22);
         Cinema c2=new Cinema("cineco",functions2);
         cinemas.put("cineco", c2);
         //funcion 3
@@ -53,8 +53,8 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         List<CinemaFunction> functions3= new ArrayList<>();
         CinemaFunction funct31 = new CinemaFunction(new Movie("SuperHeroes Movie","Action"),functionDate3);
         CinemaFunction funct32 = new CinemaFunction(new Movie("The Night","Horror"),functionDate3);
-        functions.add(funct31);
-        functions.add(funct32);
+        functions3.add(funct31);
+        functions3.add(funct32);
         Cinema c3=new Cinema("cinepolis",functions3);
         cinemas.put("cinepolis", c3);
     }    
@@ -112,6 +112,17 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     public Set<Cinema> getCinemas() throws CinemaPersistenceException {
     	Set<Cinema> cinemax = new HashSet<>(cinemas.values());
         return cinemax;
+    }
+    
+    @Override
+    public void addNewFunction(String name, CinemaFunction function) throws CinemaPersistenceException {
+    	Cinema cine = getCinema(name);  
+    	cine.addNewFuction(function);
+    }
+    @Override
+    public void setFunction(String name, CinemaFunction function) throws CinemaPersistenceException {
+    	Cinema cine = getCinema(name);  
+    	cine.setFuction(function);
     }
 
 }

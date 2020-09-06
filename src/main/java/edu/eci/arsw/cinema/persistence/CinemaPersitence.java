@@ -68,5 +68,17 @@ public interface CinemaPersitence {
      * @throws  CinemaPersistenceException if there is no such cinema
      */
 	public CinemaFunction getFunctionbyCinemaAndDateAndMovie(String cinema, String date, String movie) throws CinemaPersistenceException;
+
+	/**
+     * 
+     * @throws  CinemaPersistenceException if there is no such cinema
+     */
+	public void addNewFunction(String name, CinemaFunction function) throws CinemaPersistenceException;
+
+	/**
+     * 
+     * @throws  CinemaPersistenceException if there is no such cinema
+     */
+	public void setFunction(String name, CinemaFunction function) throws CinemaPersistenceException;
     
 }

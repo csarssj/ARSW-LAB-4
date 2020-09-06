@@ -79,6 +79,22 @@ public class CinemaServices {
     	List<CinemaFunction> functions = getFunctionsbyCinemaAndDate(cinema, date);
     	return fps.Cfilter(functions, filtro);
     };
+    
+    public void addNewFunction(String name, CinemaFunction function) {
+    	try {
+			cps.addNewFunction(name, function);
+		} catch (CinemaPersistenceException e) {
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
+    }
+    
+    public void setFunction(String name, CinemaFunction function) {
+    	try {
+			cps.setFunction(name, function);
+		} catch (CinemaPersistenceException e) {
+			throw new UnsupportedOperationException("Not supported yet.");
+		}
+    }
 
 
 }

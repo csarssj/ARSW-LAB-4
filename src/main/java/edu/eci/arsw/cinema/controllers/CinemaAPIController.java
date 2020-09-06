@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,5 +83,27 @@ public class CinemaAPIController {
 	        return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
 	    } 
         return new ResponseEntity<>(cinema,HttpStatus.ACCEPTED);
+	}
+	@RequestMapping(method = RequestMethod.POST,path = "{name}")	
+	public ResponseEntity<?> manejadorPostAddNewFunction(@PathVariable String name, @RequestBody CinemaFunction function){
+	    try {
+	        service.addNewFunction(name, function);
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 400",HttpStatus.NOT_FOUND);        
+	    }        
+
+	}
+	@RequestMapping(method = RequestMethod.PUT,path = "{name}")	
+	public ResponseEntity<?> manejadorPostRecursoXX(@PathVariable String name, @RequestBody CinemaFunction function){
+	    try {
+	        service.setFunction(name, function);
+	        return new ResponseEntity<>(HttpStatus.CREATED);
+	    } catch (Exception ex) {
+	        Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+	        return new ResponseEntity<>("Error 400",HttpStatus.NOT_FOUND);        
+	    }        
+
 	}
 }

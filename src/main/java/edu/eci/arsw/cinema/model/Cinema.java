@@ -49,6 +49,19 @@ public class Cinema {
     public void setSchedule(List<CinemaFunction> functions) {
         this.functions = functions;
     }
+    
+    public void addNewFuction(CinemaFunction function) {
+    	this.functions.add(function);
+    }
+    
+    public void setFuction(CinemaFunction function) {
+    	for(CinemaFunction f : functions) {
+    		if(function.getMovie().getName().equalsIgnoreCase(f.getMovie().getName())) {
+    			functions.set(functions.indexOf(f), function);
+    		}
+    	}
+    	this.functions.add(function);
+    }
 
 	public CinemaFunction getFunctionsByDateAndMovie(String date, String movie) {
 		CinemaFunction res = null;
